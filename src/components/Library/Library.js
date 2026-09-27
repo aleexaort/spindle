@@ -7,15 +7,15 @@ const Library = ({ librarySongs }) => {
     <section className="library-section">
       <div className="library-card-wrapper">
         <div className="section-header">
-          <h2>Your Library 📚</h2>
-          <span className="count-badge">{librarySongs.length} tracks</span>
+          <h2>Mi Biblioteca 📚</h2>
+          <span className="count-badge">{librarySongs.length} canciones</span>
         </div>
 
         {librarySongs.length === 0 ? (
           <div className="empty-state">
             <div className="empty-vinyl-icon">📀</div>
-            <p className="empty-title">Your crate is empty</p>
-            <p className="empty-sub">Add songs from the catalog to build your Danish Pastel collection.</p>
+            <p className="empty-title">Tu biblioteca está vacía</p>
+            <p className="empty-sub">Agrega canciones desde el catálogo para armar tu colección.</p>
           </div>
         ) : (
           <div className="library-list">

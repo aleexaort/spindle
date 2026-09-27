@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <header className="spindle-navbar">
       <div className="spindle-logo-container">
-        {/* SVG del logo */}
+        {/* Logo SVG de Spindle */}
         <div className="logo-circle">
           <svg viewBox="0 0 100 100" className="vinyl-svg">
             <circle cx="50" cy="50" r="32" fill="none" stroke="#FFFFFF" strokeWidth="6" />
@@ -14,12 +14,15 @@ const Header = () => {
             <path d="M 68 62 A 22 22 0 0 1 58 72" fill="none" stroke="#FFFFFF" strokeWidth="5" strokeLinecap="round" />
           </svg>
         </div>
-        <h1 className="spindle-brand-text">Spindle</h1>
+        <div className="brand-text-wrapper">
+          <h1 className="spindle-brand-text">Spindle</h1>
+          <span className="spindle-slogan">Dale vuelta a tu música</span>
+        </div>
       </div>
 
       <div className="spindle-search-bar">
         <span className="search-icon">🔍</span>
-        <input type="text" placeholder="What do you want to play?" disabled />
+        <input type="text" placeholder="¿Qué quieres escuchar hoy?" disabled />
       </div>
 
       <div className="spindle-user-profile">

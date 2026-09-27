@@ -4,7 +4,6 @@ import './Song.css';
 const Song = ({ title, artist, album, duration, coverBg, onAdd, isAdded }) => {
   return (
     <div className="vinyl-sleeve-card">
-      {/* Portada decorativa estilo funda de vinilo pastel */}
       <div className="cover-art" style={{ backgroundColor: coverBg || '#E6F0FA' }}>
         <div className="vinyl-center-sticker"></div>
       </div>
@@ -20,7 +19,7 @@ const Song = ({ title, artist, album, duration, coverBg, onAdd, isAdded }) => {
             onClick={onAdd}
             disabled={isAdded}
           >
-            {isAdded ? 'In Library ✓' : '+ Add to Library'}
+            {isAdded ? 'En mi biblioteca ✓' : '+ Agregar a mi biblioteca'}
           </button>
         )}
       </div>

@@ -6,8 +6,8 @@ const SearchResults = ({ songs, onAddSong, librarySongs }) => {
   return (
     <section className="search-section">
       <div className="section-header">
-        <h2>From the Crates 🎵</h2>
-        <p className="subtitle">Pick a record and save it to your collection.</p>
+        <h2>Catálogo de Discos 🎵</h2>
+        <p className="subtitle">Elige un vinilo y guárdalo en tu colección personalizada.</p>
       </div>
 
       <div className="results-list">
