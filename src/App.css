@@ -1,72 +1,25 @@
-/* Paleta */
 body {
   margin: 0;
-  background-color: #FDFBF7;
+  background-color: #FAF8F5;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  color: #333333;
+  color: #2D2D2D;
+  -webkit-font-smoothing: antialiased;
 }
 
-.main-container {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 24px;
+.spindle-app-container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 20px 24px 60px 24px;
 }
 
-/* Header */
-.app-header {
-  text-align: center;
-  padding: 20px;
-  background-color: #E2F0D9;
-  border-radius: 20px;
-  margin-bottom: 30px;
-}
-
-.app-header h1 {
-  margin: 0;
-  color: #2D4030;
-  font-size: 2.2rem;
-}
-
-.app-header p {
-  margin-top: 6px;
-  color: #557057;
-}
-
-/* Sección de Canciones */
-.catalog-section h2 {
-  font-size: 1.4rem;
-  margin-bottom: 16px;
-}
-
-.song-list {
+.spindle-main-grid {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
+  gap: 32px;
+  align-items: flex-start;
 }
 
-/* Tarjeta individual de canción */
-.song-card {
-  background-color: #FFFFFF;
-  padding: 16px 20px;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-  border: 1px solid #F0EAE1;
-}
-
-.song-title {
-  margin: 0 0 4px 0;
-  font-size: 1.1rem;
-  color: #1A1A1A;
-}
-
-.song-artist {
-  margin: 0 0 4px 0;
-  font-weight: 600;
-  color: #FF7A59;
-}
-
-.song-meta {
-  margin: 0;
-  font-size: 0.85rem;
-  color: #888888;
+@media (max-width: 850px) {
+  .spindle-main-grid {
+    flex-direction: column;
+  }
 }

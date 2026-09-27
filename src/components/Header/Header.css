@@ -1,0 +1,80 @@
+.spindle-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  background-color: transparent;
+  margin-bottom: 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(8px);
+}
+
+.spindle-logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-circle {
+  width: 38px;
+  height: 38px;
+  background-color: #FF3366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(255, 51, 102, 0.25);
+}
+
+.vinyl-svg {
+  width: 24px;
+  height: 24px;
+}
+
+.spindle-brand-text {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #1E1E1E;
+  margin: 0;
+  letter-spacing: -0.5px;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.spindle-search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #F2EFEA;
+  padding: 8px 18px;
+  border-radius: 30px;
+  width: 320px;
+  gap: 10px;
+}
+
+.search-icon {
+  font-size: 0.85rem;
+  opacity: 0.5;
+}
+
+.spindle-search-bar input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.spindle-user-profile .avatar-pill {
+  width: 34px;
+  height: 34px;
+  background-color: #E2D9F3;
+  color: #5B488A;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+}

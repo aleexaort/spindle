@@ -1,0 +1,85 @@
+.vinyl-sleeve-card {
+  background-color: #FFFFFF;
+  border-radius: 20px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
+  border: 1px solid #F0ECE6;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.vinyl-sleeve-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+}
+
+.cover-art {
+  width: 72px;
+  height: 72px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-shrink: 0;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
+}
+
+.vinyl-center-sticker {
+  width: 24px;
+  height: 24px;
+  background-color: #FF3366;
+  border-radius: 50%;
+  border: 4px solid #FFFFFF;
+}
+
+.vinyl-card-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.song-title {
+  margin: 0 0 2px 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1A1A1A;
+}
+
+.song-artist {
+  margin: 0 0 4px 0;
+  font-size: 0.88rem;
+  color: #777777;
+}
+
+.song-meta {
+  margin: 0 0 10px 0;
+  font-size: 0.78rem;
+  color: #AAA;
+}
+
+.spindle-pill-btn {
+  align-self: flex-start;
+  background-color: #FF3366;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.spindle-pill-btn:hover:not(:disabled) {
+  background-color: #E02B56;
+  transform: scale(1.03);
+}
+
+.spindle-pill-btn.added {
+  background-color: #E2F0D9;
+  color: #385E38;
+  cursor: default;
+}
