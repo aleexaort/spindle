@@ -1,0 +1,17 @@
+.home-container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 24px 60px 24px;
+}
+
+.spindle-main-grid {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+@media (max-width: 850px) {
+  .spindle-main-grid {
+    flex-direction: column;
+  }
+}

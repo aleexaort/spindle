@@ -16,15 +16,22 @@
 }
 
 .cover-art {
-  width: 72px;
-  height: 72px;
+  width: 76px;
+  height: 76px;
   border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   flex-shrink: 0;
+  overflow: hidden;
   box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
+}
+
+.album-cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .vinyl-center-sticker {
@@ -41,33 +48,60 @@
   flex-direction: column;
 }
 
+.song-title-link {
+  text-decoration: none;
+}
+
 .song-title {
   margin: 0 0 2px 0;
   font-size: 1rem;
   font-weight: 700;
   color: #1A1A1A;
+  transition: color 0.2s ease;
+}
+
+.song-title:hover {
+  color: #FF3366;
 }
 
 .song-artist {
-  margin: 0 0 4px 0;
+  margin: 0 0 2px 0;
   font-size: 0.88rem;
-  color: #777777;
+  color: #FF3366;
+  font-weight: 600;
 }
 
 .song-meta {
   margin: 0 0 10px 0;
   font-size: 0.78rem;
-  color: #AAA;
+  color: #888888;
+}
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.details-link {
+  font-size: 0.78rem;
+  color: #666666;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.details-link:hover {
+  text-decoration: underline;
+  color: #FF3366;
 }
 
 .spindle-pill-btn {
-  align-self: flex-start;
   background-color: #FF3366;
   color: #FFFFFF;
   border: none;
   border-radius: 20px;
   padding: 6px 14px;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -75,7 +109,6 @@
 
 .spindle-pill-btn:hover:not(:disabled) {
   background-color: #E02B56;
-  transform: scale(1.03);
 }
 
 .spindle-pill-btn.added {

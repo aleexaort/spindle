@@ -19,3 +19,43 @@
   flex-direction: column;
   gap: 14px;
 }
+
+.status-box {
+  background-color: #FFFFFF;
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  border: 1px solid #F0ECE6;
+}
+
+.loading-box p {
+  margin: 0;
+  color: #666;
+  font-weight: 500;
+}
+
+.error-box {
+  border-color: #FFCCD5;
+  background-color: #FFF5F6;
+}
+
+.error-box p {
+  color: #D90429;
+  margin: 0 0 12px 0;
+  font-weight: 600;
+}
+
+.retry-btn {
+  background-color: #FF3366;
+  color: #FFFFFF;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.empty-search p {
+  margin: 0;
+  color: #888;
+}

@@ -18,6 +18,7 @@ body {
   align-items: flex-start;
 }
 
+/* Regla responsiva */
 @media (max-width: 850px) {
   .spindle-main-grid {
     flex-direction: column;

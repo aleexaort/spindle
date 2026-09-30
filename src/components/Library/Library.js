@@ -8,24 +8,25 @@ const Library = ({ librarySongs }) => {
       <div className="library-card-wrapper">
         <div className="section-header">
           <h2>Mi Biblioteca 📚</h2>
-          <span className="count-badge">{librarySongs.length} canciones</span>
+          <span className="count-badge">{librarySongs.length} guardadas</span>
         </div>
 
         {librarySongs.length === 0 ? (
           <div className="empty-state">
             <div className="empty-vinyl-icon">📀</div>
             <p className="empty-title">Tu biblioteca está vacía</p>
-            <p className="empty-sub">Agrega canciones desde el catálogo para armar tu colección.</p>
+            <p className="empty-sub">Busca un artista y agrega álbumes a tu colección.</p>
           </div>
         ) : (
           <div className="library-list">
             {librarySongs.map((song) => (
               <Song
                 key={song.id}
+                id={song.id}
                 title={song.title}
                 artist={song.artist}
                 album={song.album}
-                duration={song.duration}
+                coverImg={song.coverImg}
                 coverBg={song.coverBg}
               />
             ))}

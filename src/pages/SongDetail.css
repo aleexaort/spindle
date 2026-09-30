@@ -1,0 +1,101 @@
+.detail-page-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 24px 60px 24px;
+}
+
+.detail-main-card {
+  background-color: #FFFFFF;
+  border-radius: 28px;
+  padding: 36px;
+  border: 1px solid #F0ECE6;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.03);
+}
+
+.back-btn {
+  display: inline-block;
+  color: #FF3366;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+}
+
+.album-detail-content {
+  display: flex;
+  gap: 36px;
+  align-items: flex-start;
+}
+
+.album-cover-stage {
+  width: 280px;
+  height: 280px;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+  flex-shrink: 0;
+}
+
+.detail-cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.album-info-stage {
+  flex: 1;
+}
+
+.genre-pill {
+  background-color: #E2F0D9;
+  color: #385E38;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.detail-album-title {
+  font-size: 2.2rem;
+  margin: 12px 0 4px 0;
+  color: #1A1A1A;
+}
+
+.detail-artist-name {
+  font-size: 1.2rem;
+  color: #FF3366;
+  margin: 0 0 20px 0;
+  font-weight: 600;
+}
+
+.detail-meta-grid p {
+  margin: 6px 0;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.album-description {
+  margin-top: 24px;
+  border-top: 1px solid #F0ECE6;
+  padding-top: 16px;
+}
+
+.album-description h3 {
+  font-size: 1rem;
+  margin: 0 0 8px 0;
+}
+
+.album-description p {
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .album-detail-content {
+    flex-direction: column;
+  }
+}

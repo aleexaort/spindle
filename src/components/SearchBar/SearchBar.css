@@ -1,0 +1,40 @@
+.spindle-search-form {
+  display: flex;
+  align-items: center;
+  background-color: #F2EFEA;
+  padding: 4px 6px 4px 16px;
+  border-radius: 30px;
+  width: 360px;
+  gap: 8px;
+  border: 1px solid #E6E1DA;
+}
+
+.search-icon {
+  font-size: 0.85rem;
+  opacity: 0.5;
+}
+
+.spindle-search-form input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  font-size: 0.85rem;
+  color: #333333;
+}
+
+.search-submit-btn {
+  background-color: #FF3366;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.search-submit-btn:hover {
+  background-color: #E02B56;
+}
