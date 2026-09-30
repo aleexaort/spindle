@@ -12,11 +12,12 @@ const Home = ({
   error, 
   onRetry, 
   onSearch, 
+  onReset,
   currentArtist 
 }) => {
   return (
     <div className="home-container">
-      <Header onSearch={onSearch} />
+      <Header onSearch={onSearch} onReset={onReset} />
       <main className="spindle-main-grid">
         <SearchResults
           songs={searchResults}

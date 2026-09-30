@@ -4,12 +4,19 @@ import './SearchBar.css';
 const SearchBar = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Formulario para la búsqueda
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+    
+    // Si se borra todo el texto, regresa al menú principal
+    if (value.trim() === '') {
+      onSearch('');
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (searchTerm.trim() !== '') {
-      onSearch(searchTerm.trim());
-    }
+    onSearch(searchTerm.trim());
   };
 
   return (
@@ -17,9 +24,9 @@ const SearchBar = ({ onSearch }) => {
       <span className="search-icon">🔍</span>
       <input
         type="text"
-        placeholder="Buscar artista (ej: Daft Punk, Gorillaz...)"
+        placeholder="Buscar artista (ej: Oasis, Coldplay...)"
         value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        onChange={handleChange}
       />
       <button type="submit" className="search-submit-btn">Buscar</button>
     </form>

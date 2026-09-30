@@ -5,87 +5,82 @@ import SongDetail from './pages/SongDetail';
 import useFetch from './hooks/useFetch';
 import './App.css';
 
-// Catálogo con URLs
-const catalogBase = [
+// Menú principal
+const defaultCatalog = [
   {
-    id: '3001',
-    title: 'WHEN WE ALL FALL ASLEEP, WHERE DO WE GO?',
-    artist: 'Billie Eilish',
-    album: 'Pop / Alternative (2019)',
-    coverImg: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&q=80',
-    coverBg: '#D8D4F2'
+    id: '2113118',
+    title: 'Heathen Chemistry',
+    artist: 'Oasis',
+    album: 'Indie (2002)',
+    genre: 'Indie',
+    year: '2002',
+    coverImg: 'https://www.theaudiodb.com/images/media/album/thumb/e3lkdt1788171576.jpg',
+    coverBg: '#E2D9F3',
+    description: 'Heathen Chemistry is the fifth studio album by the English rock band Oasis, released in 2002 through Big Brother Records.'
   },
   {
-    id: '3002',
-    title: 'Happier Than Ever',
-    artist: 'Billie Eilish',
-    album: 'Indie Pop (2021)',
-    coverImg: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&q=80',
-    coverBg: '#FFE082'
+    id: '2109614',
+    title: 'A Rush of Blood to the Head',
+    artist: 'Coldplay',
+    album: 'Pop-Rock (2002)',
+    genre: 'Pop-Rock',
+    year: '2002',
+    coverImg: 'https://r2.theaudiodb.com/images/media/album/thumb/vsusvs1521243711.jpg',
+    coverBg: '#FFE082',
+    description: 'A Rush of Blood to the Head is the second studio album by British alternative rock band Coldplay, released in August 2002.'
   },
   {
-    id: '3003',
+    id: '2111763',
+    title: 'Plastic Beach',
+    artist: 'Gorillaz',
+    album: 'Alternative Rock (2010)',
+    genre: 'Alternative Rock',
+    year: '2010',
+    coverImg: 'https://r2.theaudiodb.com/images/media/album/thumb/qw3spr1606728409.jpg',
+    coverBg: '#FFCCD5',
+    description: 'Plastic Beach is the third studio album by British virtual band Gorillaz, released in March 2010 on Parlophone and Virgin Records.'
+  },
+  {
+    id: '2112342',
     title: 'Discovery',
     artist: 'Daft Punk',
     album: 'Electronic (2001)',
-    coverImg: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&q=80',
-    coverBg: '#C3E8DD'
-  },
-  {
-    id: '3004',
-    title: 'Random Access Memories',
-    artist: 'Daft Punk',
-    album: 'Funk / Electronic (2013)',
-    coverImg: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=400&q=80',
-    coverBg: '#B3E5FC'
-  },
-  {
-    id: '3005',
-    title: 'Demon Days',
-    artist: 'Gorillaz',
-    album: 'Alternative Rock (2005)',
-    coverImg: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=400&q=80',
-    coverBg: '#FFCCD5'
-  },
-  {
-    id: '3006',
-    title: 'A Head Full of Dreams',
-    artist: 'Coldplay',
-    album: 'Alternative Pop (2015)',
-    coverImg: 'https://images.unsplash.com/photo-1498038432885-c6f3f1b912ee?w=400&q=80',
-    coverBg: '#E2F0D9'
+    genre: 'Electronic',
+    year: '2001',
+    coverImg: 'https://r2.theaudiodb.com/images/media/album/thumb/discovery-4e33d0263f458.jpg',
+    coverBg: '#C3E8DD',
+    description: 'Discovery is the second studio album by French electronic music duo Daft Punk, released in March 2001.'
   }
 ];
 
 const App = () => {
-  const [searchTerm, setSearchTerm] = useState('Billie Eilish');
+  const [searchTerm, setSearchTerm] = useState('');
   const [library, setLibrary] = useState([]);
 
-  const apiUrl = `https://www.theaudiodb.com/api/v1/json/2/searchalbum.php?s=${encodeURIComponent(searchTerm)}`;
+  const apiUrl = searchTerm.trim() !== '' 
+    ? `https://www.theaudiodb.com/api/v1/json/123/searchalbum.php?s=${encodeURIComponent(searchTerm.trim())}`
+    : null;
+
   const { data, loading, error, refetch } = useFetch(apiUrl);
 
-  // Filtrado combina respuesta de API o catálogo interno
   let searchResults = [];
 
-  if (data && data.album && Array.isArray(data.album) && data.album.length > 0) {
+  if (searchTerm.trim() === '') {
+    searchResults = defaultCatalog;
+  } else if (data && data.album && Array.isArray(data.album)) {
     searchResults = data.album.map((albumItem) => ({
       id: albumItem.idAlbum,
       title: albumItem.strAlbum,
       artist: albumItem.strArtist,
       album: `${albumItem.strGenre || 'Álbum'} (${albumItem.intYearReleased || 'N/A'})`,
+      genre: albumItem.strGenre || 'Música',
+      year: albumItem.intYearReleased || 'N/A',
       coverImg: albumItem.strAlbumThumb,
+      coverBg: '#E2D9F3',
+      description: albumItem.strDescriptionES || albumItem.strDescriptionEN || 'Sin reseña disponible.'
     }));
   } else {
-    // Búsqueda en el catálogo local si la API externa falla o bloquea
-    searchResults = catalogBase.filter((item) =>
-      item.artist.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
-    // Si busca un artista no registrado, muestra el catálogo general
-    if (searchResults.length === 0 && !loading) {
-      searchResults = catalogBase;
-    }
+    searchResults = [];
   }
 
   const handleAddSong = (songToAdd) => {
@@ -99,6 +94,10 @@ const App = () => {
     setSearchTerm(newArtist);
   };
 
+  const handleReset = () => {
+    setSearchTerm('');
+  };
+
   return (
     <Router>
       <div className="spindle-app-container">
@@ -110,11 +109,12 @@ const App = () => {
                 searchResults={searchResults}
                 onAddSong={handleAddSong}
                 library={library}
-                loading={loading}
-                error={false}
+                loading={loading && searchTerm.trim() !== ''}
+                error={error}
                 onRetry={refetch}
                 onSearch={handleSearch}
-                currentArtist={searchTerm}
+                onReset={handleReset}
+                currentArtist={searchTerm.trim() !== '' ? searchTerm : 'Menú Principal'}
               />
             } 
           />

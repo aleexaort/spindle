@@ -3,10 +3,16 @@ import { Link } from 'react-router-dom';
 import SearchBar from '../SearchBar/SearchBar';
 import './Header.css';
 
-const Header = ({ onSearch }) => {
+const Header = ({ onSearch, onReset }) => {
+  const handleLogoClick = () => {
+    if (onReset) {
+      onReset();
+    }
+  };
+
   return (
     <header className="spindle-navbar">
-      <Link to="/" className="spindle-logo-link">
+      <Link to="/" className="spindle-logo-link" onClick={handleLogoClick}>
         <div className="spindle-logo-container">
           <div className="logo-circle">
             <svg viewBox="0 0 100 100" className="vinyl-svg">
@@ -23,7 +29,6 @@ const Header = ({ onSearch }) => {
         </div>
       </Link>
 
-      {/* Buscador dinámico si la prop onSearch existe */}
       {onSearch ? (
         <SearchBar onSearch={onSearch} />
       ) : (
