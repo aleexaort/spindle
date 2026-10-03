@@ -1,24 +1,34 @@
 import React from 'react';
 import Song from '../Song/Song';
-import './Library.css';
+import {
+  LibrarySection,
+  LibraryCardWrapper,
+  LibraryHeader,
+  CountBadge,
+  EmptyState,
+  EmptyVinylIcon,
+  EmptyTitle,
+  EmptySub,
+  LibraryList
+} from './Library.styles';
 
 const Library = ({ librarySongs }) => {
   return (
-    <section className="library-section">
-      <div className="library-card-wrapper">
-        <div className="section-header">
+    <LibrarySection>
+      <LibraryCardWrapper>
+        <LibraryHeader>
           <h2>Mi Biblioteca 📚</h2>
-          <span className="count-badge">{librarySongs.length} guardadas</span>
-        </div>
+          <CountBadge>{librarySongs.length} guardadas</CountBadge>
+        </LibraryHeader>
 
         {librarySongs.length === 0 ? (
-          <div className="empty-state">
-            <div className="empty-vinyl-icon">📀</div>
-            <p className="empty-title">Tu biblioteca está vacía</p>
-            <p className="empty-sub">Busca un artista y agrega álbumes a tu colección.</p>
-          </div>
+          <EmptyState>
+            <EmptyVinylIcon>📀</EmptyVinylIcon>
+            <EmptyTitle>Tu biblioteca está vacía</EmptyTitle>
+            <EmptySub>Busca un artista y agrega álbumes a tu colección.</EmptySub>
+          </EmptyState>
         ) : (
-          <div className="library-list">
+          <LibraryList>
             {librarySongs.map((song) => (
               <Song
                 key={song.id}
@@ -30,10 +40,10 @@ const Library = ({ librarySongs }) => {
                 coverBg={song.coverBg}
               />
             ))}
-          </div>
+          </LibraryList>
         )}
-      </div>
-    </section>
+      </LibraryCardWrapper>
+    </LibrarySection>
   );
 };
 

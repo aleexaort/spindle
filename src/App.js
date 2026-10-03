@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
 import Home from './pages/Home';
 import SongDetail from './pages/SongDetail';
 import useFetch from './hooks/useFetch';
-import './App.css';
+import { theme } from './styles/theme';
+import { GlobalStyles } from './styles/GlobalStyles';
+import { AppContainer } from './App.styles';
 
-// Menú principal
 const defaultCatalog = [
   {
     id: '2113118',
@@ -99,29 +101,32 @@ const App = () => {
   };
 
   return (
-    <Router>
-      <div className="spindle-app-container">
-        <Routes>
-          <Route 
-            path="/" 
-            element={
-              <Home
-                searchResults={searchResults}
-                onAddSong={handleAddSong}
-                library={library}
-                loading={loading && searchTerm.trim() !== ''}
-                error={error}
-                onRetry={refetch}
-                onSearch={handleSearch}
-                onReset={handleReset}
-                currentArtist={searchTerm.trim() !== '' ? searchTerm : 'Menú Principal'}
-              />
-            } 
-          />
-          <Route path="/song/:id" element={<SongDetail />} />
-        </Routes>
-      </div>
-    </Router>
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
+      <Router>
+        <AppContainer>
+          <Routes>
+            <Route 
+              path="/" 
+              element={
+                <Home
+                  searchResults={searchResults}
+                  onAddSong={handleAddSong}
+                  library={library}
+                  loading={loading && searchTerm.trim() !== ''}
+                  error={error}
+                  onRetry={refetch}
+                  onSearch={handleSearch}
+                  onReset={handleReset}
+                  currentArtist={searchTerm.trim() !== '' ? searchTerm : 'Menú Principal'}
+                />
+              } 
+            />
+            <Route path="/song/:id" element={<SongDetail />} />
+          </Routes>
+        </AppContainer>
+      </Router>
+    </ThemeProvider>
   );
 };
 

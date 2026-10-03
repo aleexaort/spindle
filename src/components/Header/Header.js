@@ -1,7 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import SearchBar from '../SearchBar/SearchBar';
-import './Header.css';
+import {
+  Navbar,
+  LogoLink,
+  LogoContainer,
+  LogoCircle,
+  BrandTextWrapper,
+  BrandText,
+  SloganText,
+  UserAvatar,
+  HeaderPlaceholder
+} from './Header.styles';
 
 const Header = ({ onSearch, onReset }) => {
   const handleLogoClick = () => {
@@ -11,34 +20,34 @@ const Header = ({ onSearch, onReset }) => {
   };
 
   return (
-    <header className="spindle-navbar">
-      <Link to="/" className="spindle-logo-link" onClick={handleLogoClick}>
-        <div className="spindle-logo-container">
-          <div className="logo-circle">
-            <svg viewBox="0 0 100 100" className="vinyl-svg">
+    <Navbar>
+      <LogoLink to="/" onClick={handleLogoClick}>
+        <LogoContainer>
+          <LogoCircle>
+            <svg viewBox="0 0 100 100">
               <circle cx="50" cy="50" r="32" fill="none" stroke="#FFFFFF" strokeWidth="6" />
               <circle cx="50" cy="50" r="10" fill="#FFFFFF" />
               <path d="M 32 38 A 22 22 0 0 1 42 28" fill="none" stroke="#FFFFFF" strokeWidth="5" strokeLinecap="round" />
               <path d="M 68 62 A 22 22 0 0 1 58 72" fill="none" stroke="#FFFFFF" strokeWidth="5" strokeLinecap="round" />
             </svg>
-          </div>
-          <div className="brand-text-wrapper">
-            <h1 className="spindle-brand-text">Spindle</h1>
-            <span className="spindle-slogan">Dale vuelta a tu música</span>
-          </div>
-        </div>
-      </Link>
+          </LogoCircle>
+          <BrandTextWrapper>
+            <BrandText>Spindle</BrandText>
+            <SloganText>Dale vuelta a tu música</SloganText>
+          </BrandTextWrapper>
+        </LogoContainer>
+      </LogoLink>
 
       {onSearch ? (
         <SearchBar onSearch={onSearch} />
       ) : (
-        <div className="header-placeholder"></div>
+        <HeaderPlaceholder />
       )}
 
-      <div className="spindle-user-profile">
-        <div className="avatar-pill">A</div>
+      <div>
+        <UserAvatar>A</UserAvatar>
       </div>
-    </header>
+    </Navbar>
   );
 };
 

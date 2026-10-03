@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../components/Header/Header';
 import SearchResults from '../components/SearchResults/SearchResults';
 import Library from '../components/Library/Library';
-import './Home.css';
+import { HomeContainer, MainGrid } from './Home.styles';
 
 const Home = ({ 
   searchResults, 
@@ -16,9 +16,9 @@ const Home = ({
   currentArtist 
 }) => {
   return (
-    <div className="home-container">
+    <HomeContainer>
       <Header onSearch={onSearch} onReset={onReset} />
-      <main className="spindle-main-grid">
+      <MainGrid>
         <SearchResults
           songs={searchResults}
           onAddSong={onAddSong}
@@ -29,8 +29,8 @@ const Home = ({
           currentArtist={currentArtist}
         />
         <Library librarySongs={library} />
-      </main>
-    </div>
+      </MainGrid>
+    </HomeContainer>
   );
 };
 

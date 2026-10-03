@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
-import './SearchBar.css';
+import {
+  SearchForm,
+  SearchIcon,
+  SearchInput,
+  SearchSubmitBtn
+} from './SearchBar.styles';
 
 const SearchBar = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -8,7 +13,6 @@ const SearchBar = ({ onSearch }) => {
     const value = e.target.value;
     setSearchTerm(value);
     
-    // Si se borra todo el texto, regresa al menú principal
     if (value.trim() === '') {
       onSearch('');
     }
@@ -20,16 +24,16 @@ const SearchBar = ({ onSearch }) => {
   };
 
   return (
-    <form className="spindle-search-form" onSubmit={handleSubmit}>
-      <span className="search-icon">🔍</span>
-      <input
+    <SearchForm onSubmit={handleSubmit}>
+      <SearchIcon>🔍</SearchIcon>
+      <SearchInput
         type="text"
         placeholder="Buscar artista (ej: Oasis, Coldplay...)"
         value={searchTerm}
         onChange={handleChange}
       />
-      <button type="submit" className="search-submit-btn">Buscar</button>
-    </form>
+      <SearchSubmitBtn type="submit">Buscar</SearchSubmitBtn>
+    </SearchForm>
   );
 };
 

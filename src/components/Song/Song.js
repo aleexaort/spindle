@@ -1,46 +1,57 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import './Song.css';
+import {
+  VinylSleeveCard,
+  CoverArt,
+  AlbumCoverImg,
+  VinylCenterSticker,
+  VinylCardInfo,
+  SongTitleLink,
+  SongTitle,
+  SongArtist,
+  SongMeta,
+  CardActions,
+  DetailsLink,
+  SpindlePillBtn
+} from './Song.styles';
 
 const Song = ({ id, title, artist, album, coverImg, coverBg, onAdd, isAdded }) => {
   const [imgError, setImgError] = useState(false);
 
   return (
-    <div className="vinyl-sleeve-card">
-      <div className="cover-art" style={{ backgroundColor: coverBg || '#E2D9F3' }}>
+    <VinylSleeveCard>
+      <CoverArt coverBg={coverBg}>
         {coverImg && !imgError ? (
-          <img 
+          <AlbumCoverImg 
             src={coverImg} 
             alt={title} 
-            className="album-cover-img"
             onError={() => setImgError(true)} 
           />
         ) : (
-          <div className="vinyl-center-sticker"></div>
+          <VinylCenterSticker />
         )}
-      </div>
+      </CoverArt>
 
-      <div className="vinyl-card-info">
-        <Link to={`/song/${id}`} className="song-title-link">
-          <h4 className="song-title">{title}</h4>
-        </Link>
-        <p className="song-artist">{artist}</p>
-        <p className="song-meta">{album}</p>
+      <VinylCardInfo>
+        <SongTitleLink to={`/song/${id}`}>
+          <SongTitle>{title}</SongTitle>
+        </SongTitleLink>
+        <SongArtist>{artist}</SongArtist>
+        <SongMeta>{album}</SongMeta>
 
-        <div className="card-actions">
-          <Link to={`/song/${id}`} className="details-link">Ver detalles ➔</Link>
+        <CardActions>
+          <DetailsLink to={`/song/${id}`}>Ver detalles ➔</DetailsLink>
           {onAdd && (
-            <button 
-              className={`spindle-pill-btn ${isAdded ? 'added' : ''}`} 
+            <SpindlePillBtn 
               onClick={onAdd}
               disabled={isAdded}
+              isAdded={isAdded}
             >
               {isAdded ? 'En mi biblioteca ✓' : '+ Agregar'}
-            </button>
+            </SpindlePillBtn>
           )}
-        </div>
-      </div>
-    </div>
+        </CardActions>
+      </VinylCardInfo>
+    </VinylSleeveCard>
   );
 };
 

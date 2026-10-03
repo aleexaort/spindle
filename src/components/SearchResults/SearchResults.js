@@ -1,35 +1,38 @@
 import React from 'react';
 import Song from '../Song/Song';
-import './SearchResults.css';
+import {
+  SearchSection,
+  SectionHeader,
+  ResultsList,
+  StatusBox,
+  RetryBtn
+} from './SearchResults.styles';
 
 const SearchResults = ({ songs, onAddSong, librarySongs, loading, error, onRetry, currentArtist }) => {
   return (
-    <section className="search-section">
-      <div className="section-header">
+    <SearchSection>
+      <SectionHeader>
         <h2>Catálogo de Discos 🎵</h2>
-        <p className="subtitle">
+        <p>
           Resultados obtenidos para: <strong>{currentArtist}</strong>
         </p>
-      </div>
+      </SectionHeader>
 
-      {/* Estado de Carga */}
       {loading && (
-        <div className="status-box loading-box">
+        <StatusBox>
           <p>⏳ Cargando información desde The Audio DB...</p>
-        </div>
+        </StatusBox>
       )}
 
-      {/* Estado de Error */}
       {error && (
-        <div className="status-box error-box">
+        <StatusBox isError>
           <p>❌ Hubo un problema al cargar los datos. Intenta nuevamente.</p>
-          <button className="retry-btn" onClick={onRetry}>Reintentar búsqueda</button>
-        </div>
+          <RetryBtn onClick={onRetry}>Reintentar búsqueda</RetryBtn>
+        </StatusBox>
       )}
 
-      {/* Renderizado de Lista solo cuando los datos estén listos */}
       {!loading && !error && songs && songs.length > 0 && (
-        <div className="results-list">
+        <ResultsList>
           {songs.map((song) => {
             const isAlreadyInLibrary = librarySongs.some(
               (item) => item.id === song.id
@@ -49,16 +52,15 @@ const SearchResults = ({ songs, onAddSong, librarySongs, loading, error, onRetry
               />
             );
           })}
-        </div>
+        </ResultsList>
       )}
 
-      {/* Si no se encuentran resultados */}
       {!loading && !error && (!songs || songs.length === 0) && (
-        <div className="status-box empty-search">
-          <p>No se encontraron álbumes para el artista ingresado.</p>
-        </div>
+        <StatusBox>
+          <p>❌ No se encontraron álbumes para el artista ingresado.</p>
+        </StatusBox>
       )}
-    </section>
+    </SearchSection>
   );
 };
 

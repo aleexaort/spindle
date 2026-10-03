@@ -1,51 +1,80 @@
 import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Header from '../components/Header/Header';
 import useFetch from '../hooks/useFetch';
-import './SongDetail.css';
+import {
+  DetailPageContainer,
+  DetailMainCard,
+  BackButton,
+  AlbumDetailContent,
+  AlbumCoverStage,
+  DetailCoverImg,
+  AlbumInfoStage,
+  GenrePill,
+  DetailAlbumTitle,
+  DetailArtistName,
+  DetailMetaGrid,
+  AlbumDescription,
+  StatusNotice
+} from './SongDetail.styles';
 
 const SongDetail = () => {
   const { id } = useParams();
   const [imgError, setImgError] = useState(false);
 
   const albumUrl = `https://www.theaudiodb.com/api/v1/json/123/album.php?m=${id}`;
-  const { data, loading } = useFetch(albumUrl);
+  const { data, loading, error, refetch } = useFetch(albumUrl);
 
   const albumFromApi = data?.album?.[0];
 
   return (
-    <div className="detail-page-container">
+    <DetailPageContainer>
       <Header />
 
-      <main className="detail-main-card">
-        <Link to="/" className="back-btn">⬅ Volver al catálogo</Link>
+      <DetailMainCard>
+        <BackButton to="/">⬅ Volver al catálogo</BackButton>
 
-        {loading ? (
-          <div className="detail-status">
+        {/* Carga */}
+        {loading && (
+          <StatusNotice>
             <p>⏳ Cargando detalles del disco...</p>
-          </div>
-        ) : (
-          <div className="album-detail-content">
-            <div className="album-cover-stage">
-              {albumFromApi?.strAlbumThumb && !imgError ? (
-                <img 
+          </StatusNotice>
+        )}
+
+        {/* Error en la petición API */}
+        {!loading && error && (
+          <StatusNotice isError>
+            <p>❌ Ocurrió un problema al obtener los detalles del álbum.</p>
+            <button onClick={refetch}>Reintentar consulta</button>
+          </StatusNotice>
+        )}
+
+        {/* Álbum No Encontrado */}
+        {!loading && !error && !albumFromApi && (
+          <StatusNotice>
+            <p>🔍 No se encontró ningún álbum registrado con ese identificador.</p>
+          </StatusNotice>
+        )}
+
+        {/* Detalle del Álbum */}
+        {!loading && !error && albumFromApi && (
+          <AlbumDetailContent>
+            <AlbumCoverStage>
+              {albumFromApi.strAlbumThumb && !imgError ? (
+                <DetailCoverImg 
                   src={albumFromApi.strAlbumThumb} 
                   alt={albumFromApi.strAlbum} 
-                  className="detail-cover-img"
                   onError={() => setImgError(true)}
                 />
               ) : (
                 <div 
-                  className="vinyl-sleeve-detail-fallback" 
                   style={{ 
                     backgroundColor: '#FFE082',
-                    width: '280px',
-                    height: '280px',
-                    borderRadius: '16px',
+                    width: '100%',
+                    height: '100%',
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center',
-                    boxShadow: '0 8px 24px rgba(0,0,0,0.1)'
+                    justifyContent: 'center'
                   }}
                 >
                   <div 
@@ -54,39 +83,33 @@ const SongDetail = () => {
                       height: '90px',
                       backgroundColor: '#FF6584',
                       borderRadius: '50%',
-                      border: '8px solid #FFFFFF',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                      border: '8px solid #FFFFFF'
                     }}
-                  >
-                    <div style={{ width: '20px', height: '20px', backgroundColor: '#FFFFFF', borderRadius: '50%' }}></div>
-                  </div>
+                  />
                 </div>
               )}
-            </div>
+            </AlbumCoverStage>
 
-            <div className="album-info-stage">
-              <span className="genre-pill">{albumFromApi?.strGenre || 'Alternative Pop'}</span>
-              <h1 className="detail-album-title">{albumFromApi?.strAlbum || 'Álbum Musical'}</h1>
-              <h2 className="detail-artist-name">Por {albumFromApi?.strArtist || 'Artista Destacado'}</h2>
+            <AlbumInfoStage>
+              <GenrePill>{albumFromApi.strGenre || 'Alternative Pop'}</GenrePill>
+              <DetailAlbumTitle>{albumFromApi.strAlbum || 'Álbum Musical'}</DetailAlbumTitle>
+              <DetailArtistName>Por {albumFromApi.strArtist || 'Artista Destacado'}</DetailArtistName>
               
-              <div className="detail-meta-grid">
-                <p><strong>Año de lanzamiento:</strong> {albumFromApi?.intYearReleased || 'N/A'}</p>
-              </div>
+              <DetailMetaGrid>
+                <p><strong>Año de lanzamiento:</strong> {albumFromApi.intYearReleased || 'N/A'}</p>
+              </DetailMetaGrid>
 
-              <div className="album-description">
+              <AlbumDescription>
                 <h3>Reseña:</h3>
                 <p>
-                  {albumFromApi?.strDescriptionES || albumFromApi?.strDescriptionEN || 'Disco destacado en la biblioteca Spindle.'}
+                  {albumFromApi.strDescriptionES || albumFromApi.strDescriptionEN || 'Disco destacado en la biblioteca Spindle.'}
                 </p>
-              </div>
-            </div>
-          </div>
+              </AlbumDescription>
+            </AlbumInfoStage>
+          </AlbumDetailContent>
         )}
-      </main>
-    </div>
+      </DetailMainCard>
+    </DetailPageContainer>
   );
 };
 
