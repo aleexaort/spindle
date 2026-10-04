@@ -14,17 +14,28 @@ import {
   SpindlePillBtn
 } from './Song.styles';
 
-const Song = ({ id, title, artist, album, coverImg, coverBg, onAdd, isAdded }) => {
+const Song = ({
+  id,
+  title,
+  artist,
+  album,
+  coverImg,
+  coverBg,
+  onAdd,
+  onRemove,
+  isAdded,
+  isLibraryView
+}) => {
   const [imgError, setImgError] = useState(false);
 
   return (
     <VinylSleeveCard>
       <CoverArt coverBg={coverBg}>
         {coverImg && !imgError ? (
-          <AlbumCoverImg 
-            src={coverImg} 
-            alt={title} 
-            onError={() => setImgError(true)} 
+          <AlbumCoverImg
+            src={coverImg}
+            alt={title}
+            onError={() => setImgError(true)}
           />
         ) : (
           <VinylCenterSticker />
@@ -40,14 +51,21 @@ const Song = ({ id, title, artist, album, coverImg, coverBg, onAdd, isAdded }) =
 
         <CardActions>
           <DetailsLink to={`/song/${id}`}>Ver detalles ➔</DetailsLink>
-          {onAdd && (
-            <SpindlePillBtn 
-              onClick={onAdd}
-              disabled={isAdded}
-              isAdded={isAdded}
-            >
-              {isAdded ? 'En mi biblioteca ✓' : '+ Agregar'}
+
+          {isLibraryView ? (
+            <SpindlePillBtn onClick={onRemove} isRemove>
+              Eliminar 🗑️
             </SpindlePillBtn>
+          ) : (
+            onAdd && (
+              <SpindlePillBtn
+                onClick={onAdd}
+                disabled={isAdded}
+                isAdded={isAdded}
+              >
+                {isAdded ? 'En mi biblioteca ✓' : '+ Agregar'}
+              </SpindlePillBtn>
+            )
           )}
         </CardActions>
       </VinylCardInfo>

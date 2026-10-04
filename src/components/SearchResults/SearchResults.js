@@ -1,4 +1,6 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addSong } from '../../redux/libraryActions';
 import Song from '../Song/Song';
 import {
   SearchSection,
@@ -8,7 +10,16 @@ import {
   RetryBtn
 } from './SearchResults.styles';
 
-const SearchResults = ({ songs, onAddSong, librarySongs, loading, error, onRetry, currentArtist }) => {
+const SearchResults = ({ songs, loading, error, onRetry, currentArtist }) => {
+  const dispatch = useDispatch();
+  // Obtiene las canciones de la biblioteca desde Redux
+  const librarySongs = useSelector((state) => state);
+
+  const handleAddSong = (song) => {
+    // Despacha la acción a Redux
+    dispatch(addSong(song));
+  };
+
   return (
     <SearchSection>
       <SectionHeader>
@@ -47,7 +58,7 @@ const SearchResults = ({ songs, onAddSong, librarySongs, loading, error, onRetry
                 album={song.album}
                 coverImg={song.coverImg}
                 coverBg={song.coverBg}
-                onAdd={() => onAddSong(song)}
+                onAdd={() => handleAddSong(song)}
                 isAdded={isAlreadyInLibrary}
               />
             );

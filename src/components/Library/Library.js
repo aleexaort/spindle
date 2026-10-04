@@ -1,4 +1,6 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeSong } from '../../redux/libraryActions';
 import Song from '../Song/Song';
 import {
   LibrarySection,
@@ -12,7 +14,15 @@ import {
   LibraryList
 } from './Library.styles';
 
-const Library = ({ librarySongs }) => {
+const Library = () => {
+  const dispatch = useDispatch();
+  // Lee la biblioteca desde el estado global de Redux
+  const librarySongs = useSelector((state) => state);
+
+  const handleRemove = (songId) => {
+    dispatch(removeSong(songId));
+  };
+
   return (
     <LibrarySection>
       <LibraryCardWrapper>
@@ -38,6 +48,8 @@ const Library = ({ librarySongs }) => {
                 album={song.album}
                 coverImg={song.coverImg}
                 coverBg={song.coverBg}
+                onRemove={() => handleRemove(song.id)}
+                isLibraryView={true}
               />
             ))}
           </LibraryList>
