@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { addSong } from '../redux/slices/librarySlice';
 import Header from '../components/Header/Header';
 import useFetch from '../hooks/useFetch';
 import {
@@ -20,12 +22,32 @@ import {
 
 const SongDetail = () => {
   const { id } = useParams();
+  const dispatch = useDispatch();
   const [imgError, setImgError] = useState(false);
+
+  // Canciones de la biblioteca para saber si ya fue agregado
+  const librarySongs = useSelector((state) => state.library);
 
   const albumUrl = `https://www.theaudiodb.com/api/v1/json/123/album.php?m=${id}`;
   const { data, loading, error, refetch } = useFetch(albumUrl);
 
   const albumFromApi = data?.album?.[0];
+  const isAlreadyInLibrary = librarySongs.some((item) => item.id === id);
+
+  const handleAdd = () => {
+    if (albumFromApi) {
+      dispatch(
+        addSong({
+          id: albumFromApi.idAlbum,
+          title: albumFromApi.strAlbum,
+          artist: albumFromApi.strArtist,
+          album: albumFromApi.strAlbum,
+          coverImg: albumFromApi.strAlbumThumb,
+          coverBg: '#1e1b2e'
+        })
+      );
+    }
+  };
 
   return (
     <DetailPageContainer>
@@ -105,6 +127,23 @@ const SongDetail = () => {
                   {albumFromApi.strDescriptionES || albumFromApi.strDescriptionEN || 'Disco destacado en la biblioteca Spindle.'}
                 </p>
               </AlbumDescription>
+
+              <button 
+                onClick={handleAdd}
+                disabled={isAlreadyInLibrary}
+                style={{
+                  marginTop: '15px',
+                  padding: '10px 18px',
+                  borderRadius: '12px',
+                  border: 'none',
+                  backgroundColor: isAlreadyInLibrary ? '#A0AEC0' : '#FF6584',
+                  color: '#FFFFFF',
+                  fontWeight: 'bold',
+                  cursor: isAlreadyInLibrary ? 'not-allowed' : 'pointer'
+                }}
+              >
+                {isAlreadyInLibrary ? 'En mi biblioteca ✓' : '+ Agregar a mi biblioteca'}
+              </button>
             </AlbumInfoStage>
           </AlbumDetailContent>
         )}

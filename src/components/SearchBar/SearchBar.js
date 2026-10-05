@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchSongs, resetResults } from '../../redux/slices/searchSlice';
 import {
   SearchForm,
   SearchIcon,
@@ -6,21 +8,24 @@ import {
   SearchSubmitBtn
 } from './SearchBar.styles';
 
-const SearchBar = ({ onSearch }) => {
+const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const value = e.target.value;
     setSearchTerm(value);
-    
+
     if (value.trim() === '') {
-      onSearch('');
+      dispatch(resetResults());
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSearch(searchTerm.trim());
+    if (searchTerm.trim()) {
+      dispatch(fetchSongs(searchTerm.trim()));
+    }
   };
 
   return (

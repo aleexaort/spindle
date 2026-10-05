@@ -1,4 +1,6 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { resetResults } from '../../redux/slices/searchSlice';
 import SearchBar from '../SearchBar/SearchBar';
 import {
   Navbar,
@@ -8,15 +10,14 @@ import {
   BrandTextWrapper,
   BrandText,
   SloganText,
-  UserAvatar,
-  HeaderPlaceholder
+  UserAvatar
 } from './Header.styles';
 
-const Header = ({ onSearch, onReset }) => {
+const Header = () => {
+  const dispatch = useDispatch();
+
   const handleLogoClick = () => {
-    if (onReset) {
-      onReset();
-    }
+    dispatch(resetResults());
   };
 
   return (
@@ -27,6 +28,7 @@ const Header = ({ onSearch, onReset }) => {
             <svg viewBox="0 0 100 100">
               <circle cx="50" cy="50" r="32" fill="none" stroke="#FFFFFF" strokeWidth="6" />
               <circle cx="50" cy="50" r="10" fill="#FFFFFF" />
+              <circle cx="50" cy="50" r="3" fill="#FF6584" />
               <path d="M 32 38 A 22 22 0 0 1 42 28" fill="none" stroke="#FFFFFF" strokeWidth="5" strokeLinecap="round" />
               <path d="M 68 62 A 22 22 0 0 1 58 72" fill="none" stroke="#FFFFFF" strokeWidth="5" strokeLinecap="round" />
             </svg>
@@ -38,11 +40,7 @@ const Header = ({ onSearch, onReset }) => {
         </LogoContainer>
       </LogoLink>
 
-      {onSearch ? (
-        <SearchBar onSearch={onSearch} />
-      ) : (
-        <HeaderPlaceholder />
-      )}
+      <SearchBar />
 
       <div>
         <UserAvatar>A</UserAvatar>

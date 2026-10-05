@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addSong } from '../../redux/libraryActions';
+import { addSong } from '../../redux/slices/librarySlice';
+import { fetchSongs } from '../../redux/slices/searchSlice';
 import Song from '../Song/Song';
 import {
   SearchSection,
@@ -10,14 +11,23 @@ import {
   RetryBtn
 } from './SearchResults.styles';
 
-const SearchResults = ({ songs, loading, error, onRetry, currentArtist }) => {
+const SearchResults = () => {
   const dispatch = useDispatch();
-  // Obtiene las canciones de la biblioteca desde Redux
-  const librarySongs = useSelector((state) => state);
+
+  // Estado de la búsqueda y la biblioteca desde Redux Toolkit
+  const { results: songs, loading, error, currentArtist } = useSelector(
+    (state) => state.search
+  );
+  const librarySongs = useSelector((state) => state.library);
 
   const handleAddSong = (song) => {
-    // Despacha la acción a Redux
     dispatch(addSong(song));
+  };
+
+  const handleRetry = () => {
+    if (currentArtist) {
+      dispatch(fetchSongs(currentArtist));
+    }
   };
 
   return (
@@ -25,7 +35,7 @@ const SearchResults = ({ songs, loading, error, onRetry, currentArtist }) => {
       <SectionHeader>
         <h2>Catálogo de Discos 🎵</h2>
         <p>
-          Resultados obtenidos para: <strong>{currentArtist}</strong>
+          Resultados obtenidos para: <strong>{currentArtist || '—'}</strong>
         </p>
       </SectionHeader>
 
@@ -38,7 +48,7 @@ const SearchResults = ({ songs, loading, error, onRetry, currentArtist }) => {
       {error && (
         <StatusBox isError>
           <p>❌ Hubo un problema al cargar los datos. Intenta nuevamente.</p>
-          <RetryBtn onClick={onRetry}>Reintentar búsqueda</RetryBtn>
+          <RetryBtn onClick={handleRetry}>Reintentar búsqueda</RetryBtn>
         </StatusBox>
       )}
 
@@ -66,7 +76,7 @@ const SearchResults = ({ songs, loading, error, onRetry, currentArtist }) => {
         </ResultsList>
       )}
 
-      {!loading && !error && (!songs || songs.length === 0) && (
+      {!loading && !error && (!songs || songs.length === 0) && currentArtist && (
         <StatusBox>
           <p>❌ No se encontraron álbumes para el artista ingresado.</p>
         </StatusBox>

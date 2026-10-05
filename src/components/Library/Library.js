@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeSong } from '../../redux/libraryActions';
+import { removeSong } from '../../redux/slices/librarySlice';
 import Song from '../Song/Song';
 import {
   LibrarySection,
@@ -16,8 +16,8 @@ import {
 
 const Library = () => {
   const dispatch = useDispatch();
-  // Lee la biblioteca desde el estado global de Redux
-  const librarySongs = useSelector((state) => state);
+  // Biblioteca desde el slice en Redux Toolkit
+  const librarySongs = useSelector((state) => state.library);
 
   const handleRemove = (songId) => {
     dispatch(removeSong(songId));
